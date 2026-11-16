@@ -2,17 +2,17 @@ from datetime import datetime
 import os
 import string
 from typing import Any, Dict, List, Tuple
-import utils  # Импорт функций архитектора
+import utils  # Import architect's utility functions
 
 
 def get_current_drive() -> str:
-    """Получение текущего диска Windows"""
+    """Get the current Windows drive."""
     drive, _ = os.path.splitdrive(os.getcwd())
     return drive if drive else "C:"
 
 
 def list_available_drives() -> List[str]:
-    """Получение списка доступных дисков Windows"""
+    """Get a list of available Windows drives."""
     drives = []
     if utils.is_windows_os():
         import ctypes
@@ -28,7 +28,7 @@ def list_available_drives() -> List[str]:
 
 
 def list_directory(path: str) -> Tuple[bool, List[Dict[str, Any]]]:
-    """Отображение содержимого каталога в Windows"""
+    """Get the contents of a Windows directory."""
     valid, _ = utils.validate_windows_path(path)
     if not valid:
         return False, []
@@ -63,7 +63,7 @@ def list_directory(path: str) -> Tuple[bool, List[Dict[str, Any]]]:
 
 
 def format_directory_output(items: List[Dict[str, Any]]) -> None:
-    """Форматированный вывод содержимого каталога для Windows"""
+    """Display formatted Windows directory contents."""
     if not items:
         print("Каталог пуст или недоступен.")
         return
@@ -91,14 +91,14 @@ def format_directory_output(items: List[Dict[str, Any]]) -> None:
 
 
 def move_up(current_path: str) -> str:
-    """Переход в родительский каталог в Windows"""
+    """Move to the parent directory in Windows."""
     parent = utils.get_parent_path(current_path)
     valid, _ = utils.validate_windows_path(parent)
     return parent if valid else current_path
 
 
 def move_down(current_path: str, target_dir: str) -> Tuple[bool, str]:
-    """Переход в указанный подкаталог в Windows"""
+    """Move to the specified Windows subdirectory."""
     if ":" in target_dir:
         new_path = target_dir
         if len(new_path) == 2 and new_path.endswith(":"):
@@ -115,7 +115,7 @@ def move_down(current_path: str, target_dir: str) -> Tuple[bool, str]:
 
 
 def get_windows_special_folders() -> Dict[str, str]:
-    """Получение путей к специальным папкам Windows"""
+    """Get paths to special Windows folders."""
     user_profile = os.environ.get("USERPROFILE", "C:\\")
     return {
         "Desktop": os.path.join(user_profile, "Desktop"),
