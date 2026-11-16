@@ -8,12 +8,12 @@ PathString = Union[str, Path]
 
 
 def is_windows_os() -> bool:
-    """Проверка что программа запущена на Windows"""
+    """Checking whether the program is running on Windows"""
     return platform.system() == "Windows"
 
 
 def validate_windows_path(path: PathString) -> Tuple[bool, str]:
-    """Проверка корректности Windows пути"""
+    """Validating the correctness of a Windows path"""
     path_str = str(path)
 
     if not path_str.strip():
@@ -38,7 +38,7 @@ def validate_windows_path(path: PathString) -> Tuple[bool, str]:
 
 
 def format_size(size_bytes: int) -> str:
-    """Форматирование размера файла в читаемом виде для Windows"""
+    """Formatting file sizes into a human-readable format for Windows"""
     if size_bytes == 0:
         return "0 KB"
     suffixes = ["Bytes", "KB", "MB", "GB", "TB"]
@@ -53,7 +53,7 @@ def format_size(size_bytes: int) -> str:
 
 
 def get_parent_path(path: PathString) -> str:
-    """Получение родительского каталога с учетом Windows путей"""
+    """Getting the parent directory, accounting for Windows paths"""
     path_str = str(path)
     drive, tail = os.path.splitdrive(path_str)
 
@@ -67,7 +67,7 @@ def get_parent_path(path: PathString) -> str:
 
 
 def safe_windows_listdir(path: PathString) -> List[str]:
-    """Безопасное получение содержимого каталога в Windows"""
+    """Safely retrieving directory contents in Windows"""
     try:
         return os.listdir(path)
     except (PermissionError, FileNotFoundError, OSError):
@@ -75,7 +75,7 @@ def safe_windows_listdir(path: PathString) -> List[str]:
 
 
 def is_hidden_windows_file(path: PathString) -> bool:
-    """Проверка является ли файл скрытым в Windows"""
+    """Checking whether a file is hidden in Windows"""
     try:
         path_str = str(path)
         if not is_windows_os():
