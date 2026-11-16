@@ -104,9 +104,14 @@ def move_down(current_path: str, target_dir: str) -> Tuple[bool, str]:
         if len(new_path) == 2 and new_path.endswith(":"):
             new_path += "\\"
     else:
-        if target_dir not in utils.safe_windows_listdir(current_path):
+        directories = utils.safe_windows_listdir(current_path)
+        matched_dir = next(
+            (name for name in directories if name.casefold() == target_dir.casefold()),
+            None
+        )
+        if matched_dir is None:
             return False, current_path
-        new_path = os.path.join(current_path, target_dir)
+        new_path = os.path.join(current_path, matched_dir)
 
     valid, _ = utils.validate_windows_path(new_path)
     if valid and os.path.isdir(new_path):
