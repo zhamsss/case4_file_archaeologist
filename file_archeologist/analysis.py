@@ -1,12 +1,11 @@
 from collections import defaultdict
 import os
 from typing import Any, Dict, Tuple
-import navigation  # Функции инженера навигации
-import utils  # Функции архитектора
+import navigation 
+import utils  
 
 
 def count_files(path: str) -> Tuple[bool, int]:
-    """Рекурсивный подсчет файлов в Windows каталоге"""
     success, items = navigation.list_directory(path)
     if not success:
         return False, 0
@@ -28,7 +27,6 @@ def count_files(path: str) -> Tuple[bool, int]:
 
 
 def count_bytes(path: str) -> Tuple[bool, int]:
-    """Рекурсивный подсчет размера файлов в Windows"""
     success, items = navigation.list_directory(path)
     if not success:
         return False, 0
@@ -54,7 +52,6 @@ def count_bytes(path: str) -> Tuple[bool, int]:
 def analyze_windows_file_types(
     path: str,
 ) -> Tuple[bool, Dict[str, Dict[str, Any]]]:
-    """Анализ типов файлов с учетом Windows расширений"""
     stats = defaultdict(lambda: {"count": 0, "size": 0})
 
     def _recursive_collect(current_path: str) -> None:
@@ -83,7 +80,6 @@ def analyze_windows_file_types(
 
 
 def get_windows_file_attributes_stats(path: str) -> Dict[str, int]:
-    """Статистика по атрибутам файлов Windows"""
     stats = {"hidden_or_system": 0, "normal": 0}
     success, items = navigation.list_directory(path)
     if not success:
@@ -98,7 +94,6 @@ def get_windows_file_attributes_stats(path: str) -> Dict[str, int]:
 
 
 def show_windows_directory_stats(path: str) -> bool:
-    """Комплексный вывод статистики Windows каталога"""
     print(f"\n=== АНАЛИЗ КАТАЛОГА: {path} ===")
 
     ok_files, f_count = count_files(path)
