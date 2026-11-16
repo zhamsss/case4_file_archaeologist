@@ -1,14 +1,14 @@
 import os
 import sys
 from typing import NoReturn
-import analysis  # Модуль аналитика
-import navigation  # Модуль инженера навигации
-import search  # Модуль эксперта поиска
-import utils  # Собственный модуль
+import analysis  # Analytics module
+import navigation  # Navigation Engineer Module
+import search  # Search Expert Module
+import utils  # Custom module
 
 
 def check_windows_environment() -> bool:
-    """Проверка что программа запущена в Windows"""
+    """Checking whether the program is running on Windows"""
     if not utils.is_windows_os():
         print("[КРИТИЧЕСКАЯ ОШИБКА]: Проект 'Файловый археолог' спроектирован")
         print("исключительно под архитектуру файловой системы ОС Windows!")
@@ -18,7 +18,7 @@ def check_windows_environment() -> bool:
 
 
 def display_windows_banner() -> None:
-    """Отображение баннера с информацией о Windows"""
+    """Displaying a banner with information about Windows"""
     print("=" * 60)
     print("   АРХЕОЛОГИЧЕСКИЙ ТЕРМИНАЛЬНЫЙ НАВИГАТОР 'WINDOWS-2142'")
     print("=" * 60)
@@ -28,7 +28,7 @@ def display_windows_banner() -> None:
 
 
 def display_main_menu(current_path: str) -> None:
-    """Отображение главного меню для Windows"""
+    """Displaying the main menu for Windows"""
     print(f"\n[ТЕКУЩИЙ СЕКТОР]: {current_path}")
     drives = navigation.list_available_drives()
     print("Доступные накопители в системе:", drives)
@@ -44,7 +44,7 @@ def display_main_menu(current_path: str) -> None:
 
 
 def handle_windows_navigation(command: str, current_path: str) -> str:
-    """Обработка команд навигации в Windows"""
+    """Handling navigation commands in Windows"""
     parts = command.strip().split(maxsplit=1)
     cmd_type = parts[0].lower() if parts else ""
 
@@ -68,7 +68,7 @@ def handle_windows_navigation(command: str, current_path: str) -> str:
         if target == "..":
             return navigation.move_up(current_path)
 
-        # Проверка смены диска через список доступных дисков
+        # Checking for a disk change via the list of available disks
         if len(target) == 2 and target.endswith(":"):
             drives = [d.upper() for d in navigation.list_available_drives()]
             if target.upper() not in drives:
@@ -103,7 +103,7 @@ def handle_windows_navigation(command: str, current_path: str) -> str:
 
 
 def handle_windows_analysis(command: str, current_path: str) -> None:
-    """Обработка команд анализа Windows файловой системы"""
+    """Processing Windows file system analysis commands"""
     cmd_type = command.strip().split(maxsplit=1)[0].lower()
 
     if cmd_type in ("2", "stat", "анализ"):
@@ -122,14 +122,14 @@ def handle_windows_analysis(command: str, current_path: str) -> None:
 
 
 def handle_windows_search(command: str, current_path: str) -> None:
-    """Обработка команд поиска в Windows"""
+    """Handling search commands in Windows"""
     searching = True
     while searching:
         searching = search.search_menu_handler(current_path)
 
 
 def run_windows_command(command: str, current_path: str) -> str:
-    """Главный обработчик команд с использованием match case"""
+    """Main command handler using match case"""
     parts = command.strip().split(maxsplit=1)
     cmd_type = parts[0].lower() if parts else ""
 
@@ -154,7 +154,7 @@ def run_windows_command(command: str, current_path: str) -> str:
 
 
 def main() -> NoReturn:
-    """Главная функция программы для Windows"""
+    """The main function of the program for Windows"""
     check_windows_environment()
     display_windows_banner()
 
