@@ -1,15 +1,14 @@
 import fnmatch
 import os
 from typing import Any, Dict, List
-import analysis  # Функции аналитика
-import navigation  # Функции инженера навигации
-import utils  # Функции архитектора
+import analysis
+import navigation
+import utils
 
 
 def find_files_windows(
     pattern: str, path: str, case_sensitive: bool = False
 ) -> List[str]:
-    """Поиск файлов по шаблону в Windows"""
     valid, _ = utils.validate_windows_path(path)
     if not valid:
         return []
@@ -51,7 +50,6 @@ def find_files_windows(
 
 
 def find_by_windows_extension(extensions: List[str], path: str) -> List[str]:
-    """Поиск файлов по списку расширений Windows"""
     valid, _ = utils.validate_windows_path(path)
     if not valid or not extensions:
         return []
@@ -93,7 +91,6 @@ def find_by_windows_extension(extensions: List[str], path: str) -> List[str]:
 def find_large_files_windows(
     min_size_mb: float, path: str
 ) -> List[Dict[str, Any]]:
-    """Поиск крупных файлов в Windows"""
     valid, _ = utils.validate_windows_path(path)
     if not valid:
         return []
@@ -134,7 +131,6 @@ def find_large_files_windows(
 
 
 def find_windows_system_files(path: str) -> List[str]:
-    """Поиск системных файлов Windows"""
     special_folders = navigation.get_windows_special_folders()
     win_dir = special_folders.get("Windows", "C:\\Windows")
 
@@ -151,7 +147,6 @@ def find_windows_system_files(path: str) -> List[str]:
 
 
 def format_windows_search_results(results: List[Any], search_type: str) -> None:
-    """Форматированный вывод результатов поиска для Windows"""
     print(f"\n--- Результаты поиска ({search_type}) ---")
     if not results:
         print("Ничего не найдено.")
@@ -175,7 +170,6 @@ def format_windows_search_results(results: List[Any], search_type: str) -> None:
 
 
 def search_menu_handler(current_path: str) -> bool:
-    """Обработчик меню поиска для Windows"""
     print("\n=== ПОДСИСТЕМА ПОИСКА АРТЕФАКТОВ ===")
     print("1. Поиск по маске (шаблону имени, например: *report*?.txt)")
     print("2. Поиск по списку расширений (например: exe, dll)")
